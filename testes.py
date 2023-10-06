@@ -8,10 +8,10 @@ class turmaTest(unittest.TestCase):
     print('Teste', self._testMethodName, 'sendo executado...')
     self.alunos = []
     
-    self.alunos.append(a.Aluno('Fabio', 'Teixeira', 10))
+    self.alunos.append(a.Aluno('Fabio', 'Teixeira', 11))
     self.alunos.append(a.Aluno('Fabiano', 'Teixeira', 8))
     self.alunos.append(a.Aluno('Melissa', 'Teixeira', 6))    
-    self.alunos.append(a.Aluno('Angela', 'Teixeira', 7))      
+    self.alunos.append(a.Aluno('Angela', 'Teixeira', -1))      
     
     self.turmaObject = t.Turma();
     self.turmaObject.cadastrarAlunos(self.alunos);
@@ -19,17 +19,16 @@ class turmaTest(unittest.TestCase):
   def tearDown(self):
     print('Teste', self._testMethodName, 'finalizado.')
   
-  def testMaior(self):     
-    self.assertEqual(10, self.turmaObject.maiorNota.nota, 'Erro ao encontrar maior nota')
+  def testMaior(self):   
+    self.assertEqual(11, self.turmaObject.maiorNota.nota, 'Erro ao encontrar maior nota')
     
-
   def testMenor(self):    
-    self.assertEqual(6, self.turmaObject.menorNota.nota, 'Erro ao encontrar menor nota')
+    self.assertEqual(-1, self.turmaObject.menorNota.nota, 'Erro ao encontrar menor nota')
 
   def testIntervalo(self):
-    print('Testar se o intervalo de notas está correto.')
-    #Escreva o seu código aqui
-    #Testar se o intervalo de notas está entre 0 e 10.
+    for aluno in self.alunos:
+      self.assertGreaterEqual(aluno.nota, 0, 'Nota abaixo de 0 encontrada')
+      self.assertLessEqual(aluno.nota, 10, 'Nota acima de 10 encontrada')
 
 
 if __name__ == "__main__":
